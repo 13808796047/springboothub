@@ -1,7 +1,9 @@
 package com.example.springboothub.service.impl;
 
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.example.springboothub.Entity.UserEntity;
 import com.example.springboothub.dao.UserMapper;
@@ -41,5 +43,32 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, UserEntity> impleme
         //返回数据
         return list;
     }
+
+    @Override
+    public List<UserEntity> getUsersByIdAndDate(Integer userId, Integer age) {
+        //lambda条件构造器
+        LambdaQueryWrapper queryWrapper = new LambdaQueryWrapper<>();
+        //传入条件
+        queryWrapper.eq(UserEntity::getId, userId);
+        queryWrapper.eq(UserEntity::getAge, age);
+        //调用修改方法
+        return this.list(queryWrapper);
+    }
+
+    /**
+     * 根据用户id修改用户信息
+     *
+     * @param userId 用户id
+     */
+    public boolean updateByUserId(String userId) {
+        //条件构造器
+        UpdateWrapper wrapper = new UpdateWrapper<>();
+        //传入条件
+        wrapper.eq("id", userId);
+        //调用修改方法
+        return this.update(wrapper);
+    }
+
+
 }
 

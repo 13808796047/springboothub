@@ -21,5 +21,9 @@ public interface UserService extends IService<UserEntity> {
      * @param sex 性别
      */
     List<UserEntity> getUsersBySex(String sex);
+
+    List<UserEntity> getUsersByIdAndDate(Integer userId, Integer age);
+
+    boolean updateByUserId(String userId);
 }
 
